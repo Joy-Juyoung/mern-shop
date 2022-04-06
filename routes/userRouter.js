@@ -2,10 +2,6 @@ const router = require('express').Router();
 const userCtrl = require('../controllers/userCtrl');
 const auth = require('../middleware/auth');
 
-// router.post('/register', (req, res) => {
-//   res.json({ msg: 'test router' });
-// });
-
 router.post('/register', userCtrl.register);
 
 router.post('/login', userCtrl.login);

@@ -1,39 +1,11 @@
-const mongoose = require('mongoose');
+const router = require('express').Router();
+const paymentCtrl = require('../controllers/paymentCtrl');
+const auth = require('../middleware/auth');
+const authAdmin = require('../middleware/authAdmin');
 
-const paymentSchema = new mongoose.Schema(
-  {
-    user_id: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    paymentID: {
-      type: String,
-      required: true,
-    },
-    address: {
-      type: Object,
-      required: true,
-    },
-    cart: {
-      type: Array,
-      default: [],
-    },
-    status: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
+router
+  .route('/payment')
+  .get(auth, authAdmin, paymentCtrl.getPayments)
+  .post(auth, paymentCtrl.createPayment);
 
-module.exports = mongoose.model('Payments', paymentSchema);
+module.exports = router;
